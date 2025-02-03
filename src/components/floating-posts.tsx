@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { Heart, MessageCircle, Bookmark, MoreHorizontal } from "lucide-react";
 import { motion } from "framer-motion";
+import { useDeviceSize } from "@/hooks/use-device-size";
 
 const SAMPLE_POSTS = [
 	{
@@ -143,16 +144,24 @@ const fadeInVariants = {
 
 export function FloatingPosts() {
 	const [mounted, setMounted] = useState(false);
-
+	const { deviceType } = useDeviceSize();
 	useEffect(() => {
 		setMounted(true);
 	}, []);
-
+	const filteredPosts = useMemo(() => {
+		if(deviceType === "mobile"){
+			return SAMPLE_POSTS.slice(0, 2);
+		}else if(deviceType === "tablet"){
+			return SAMPLE_POSTS.slice(0, 4);	
+		}else {
+			return SAMPLE_POSTS
+		}
+	}, [deviceType])
 	if (!mounted) return null;
 
 	return (
 		<div className='fixed inset-0 overflow-hidden'>
-			{SAMPLE_POSTS.map((post, index) => {
+			{filteredPosts.map((post, index) => {
 				const position = getGridPosition(index);
 				return (
 					<motion.div
