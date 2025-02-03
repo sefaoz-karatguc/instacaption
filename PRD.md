@@ -3,30 +3,65 @@ An AI powered web app to generate captions for Instagram posts. Caption generati
 
 UI approach: support dark theme, responsive design. Shadcn-UI for UI components.
 
-TODO LIST
-0. Set up project repository
-Initialize a new repository for the project and set up the basic structure using Next.js and TypeScript.
+### Completed Features 
 
-1. Design UI mockups
-Create initial UI mockups for the app using Figma, focusing on user flow from photo upload to caption generation.
+1. **Project Setup**
+   - Next.js with TypeScript setup
+   - TailwindCSS and Shadcn-UI integration
+   - Dark theme support
+   - Responsive design implementation
 
-2. Implement photo upload feature
-Develop the feature allowing users to upload photos for caption generation.
+2. **Core Features**
+   - Photo upload functionality
+   - AI caption generation using Gemini Pro Vision
+   - Clipboard copy functionality
+   - Cookie consent implementation
+   - Basic visitor tracking
 
-3. Integrate AI caption generation
-Integrate AI service to generate captions based on uploaded photos and user input.
+3. **UI Components**
+   - Upload zone with drag & drop
+   - Custom prompt input
+   - Generated caption display
+   - Copy to clipboard button
+   - Loading states and error handling
+   - Cookie consent banner
 
-4. Implement clipboard copy feature
-Allow users to copy generated captions to their clipboard.
+### Pending Features 
 
-5. Set up Supabase database
-Configure Supabase to store generated captions and manage user data.
+1. **Authentication**
+   - Google Sign In
+   - Instagram Sign In
+   - Apple Sign In
+   - Next-Auth integration
 
-6. Implement user authentication
-Add Google, Instagram, and Apple Sign In options for user authentication.
+2. **User Management**
+   - Free trial tracking
+   - Sign-in prompts after first use
+   - User dashboard
 
-7. Limit free trials and prompt sign-in
-Implement logic to track free trials and prompt users to sign in after their first free caption generation.
+3. **Database Features**
+   - Store generated captions
+   - User caption history
+   - Usage tracking
 
-8. UI enhancements with TailwindCSS and Shadcn-UI
-Enhance the UI using TailwindCSS and Shadcn-UI for a polished look and feel.
+4. **Additional Enhancements**
+   - Caption history view
+   - User preferences
+   - Advanced prompt customization
+
+### Technical Debt and Improvements 
+
+1. **Performance**
+   - Image optimization
+   - Loading state refinements
+   - Error boundary implementation
+
+2. **Security**
+   - Rate limiting
+   - Input validation
+   - API route protection
+
+3. **Analytics**
+   - Usage tracking
+   - Error tracking
+   - Performance monitoring
