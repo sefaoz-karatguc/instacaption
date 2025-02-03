@@ -28,38 +28,32 @@ create trigger update_posts_updated_at
     execute function update_updated_at_column();
 
 -- Create visitors table
-create table visitors (
-    id bigint primary key generated always as identity,
-    ip_address text not null,
-    user_agent text,
-    first_visit_at timestamp with time zone default timezone('utc'::text, now()),
-    last_visit_at timestamp with time zone default timezone('utc'::text, now()),
-    visit_count integer default 1,
-    country text,
-    city text,
-    browser text,
-    os text,
-    device_type text,
-    created_at timestamp with time zone default timezone('utc'::text, now()),
-    updated_at timestamp with time zone default timezone('utc'::text, now())
+CREATE TABLE IF NOT EXISTS visitors (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  ip_address TEXT NOT NULL,
+  user_agent TEXT,
+  visit_count INTEGER DEFAULT 1,
+  first_visit_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  last_visit_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  country TEXT,
+  city TEXT,
+  browser TEXT,
+  os TEXT,
+  device_type TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Create an index on ip_address for faster lookups
-create index visitors_ip_address_idx on visitors(ip_address);
+-- Create index on ip_address for faster lookups
+CREATE INDEX IF NOT EXISTS visitors_ip_address_idx ON visitors(ip_address);
 
--- Create a function to update visitor information
-create or replace function update_visitor_last_visit()
-returns trigger as $$
-begin
-    new.last_visit_at = timezone('utc'::text, now());
-    new.visit_count = old.visit_count + 1;
-    new.updated_at = timezone('utc'::text, now());
-    return new;
-end;
-$$ language plpgsql;
+-- Enable RLS
+ALTER TABLE visitors ENABLE ROW LEVEL SECURITY;
 
--- Create a trigger for updating visitor information
-create trigger update_visitor_info
-    before update on visitors
-    for each row
-    execute function update_visitor_last_visit();
+-- Create policies for public access
+CREATE POLICY "Enable read access for all users" ON visitors FOR SELECT USING (true);
+CREATE POLICY "Enable insert access for all users" ON visitors FOR INSERT WITH CHECK (true);
+CREATE POLICY "Enable update access for all users" ON visitors FOR UPDATE USING (true);
+
+-- Grant necessary permissions to anon and authenticated roles
+GRANT SELECT, INSERT, UPDATE ON visitors TO anon, authenticated;

@@ -23,7 +23,7 @@ export async function generateCaption(
     // Create model instance with the new model
     const model = genAI.getGenerativeModel({ 
       model: "gemini-1.5-flash",
-      systemInstruction: "You are an Instagram caption generator called InstaCaption. You only analyse the files and the text given to you and based on the feeling in the image and text, you create a caption",
+      systemInstruction: "You are an Instagram caption generator called InstaCaption. You only analyse the files and the text given to you and based on the feeling in the image and text, you create a caption, just one, no additional comments or descriptions. Generate the caption in the given user prompt language",
       generationConfig: {
         temperature: 0.5,
       }
@@ -38,7 +38,17 @@ export async function generateCaption(
     };
 
     // Prepare the prompt
-    const prompt = customPrompt || `Create an engaging Instagram caption that:
+    const prompt = customPrompt ? `user prompt: ${customPrompt}.` + ` Structure you should follow: Create an engaging Instagram caption that:
+- Is concise (max 50 words)
+- Has a casual, conversational tone
+- Starts with an attention-grabbing hook or emoji
+- Includes a relatable message or story
+- Encourages engagement (but don't explicitly ask for likes/comments)
+- Ends with 3-5 relevant hashtags
+- Avoids clichés and generic descriptions
+- Matches the mood and emotion of the image
+- Do not include your thoughts or comments in the caption
+Make it sound natural, as if a real person wrote it for their Instagram post.` : `Create an engaging Instagram caption that:
 - Is concise (max 50 words)
 - Has a casual, conversational tone
 - Starts with an attention-grabbing hook or emoji
