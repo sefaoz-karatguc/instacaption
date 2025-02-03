@@ -24,7 +24,7 @@ export default function Home() {
 			<FloatingPosts />
 
 			{/* Upload zone in foreground */}
-			<div className='relative z-10 flex items-center justify-center'>
+			<div className='relative z-10 flex items-center justify-center w-full'>
 				<UploadZone />
 			</div>
 		</main>
