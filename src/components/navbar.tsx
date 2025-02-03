@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Sun, Moon, LogIn, LogOut } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
+import Link from "next/link";
+import { Logo } from "./logo";
 
 export function Navbar() {
 	const [isDarkMode, setIsDarkMode] = useState(false);
@@ -72,6 +74,9 @@ export function Navbar() {
 	return (
 		<nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4">
 			<div className="flex items-center gap-2">
+				<Link href="/">
+					<Logo />
+				</Link>
 				<Button
 					variant="ghost"
 					size="icon"
